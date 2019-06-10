@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="none">
+    <test verbose="2" preserve-order="true" name="Mobile Native">
+        <parameter name="phone" value="Redmi"></parameter>
+        <classes>
+            <class name="appium.learnAppium">
+
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Mobile Web">
+        <parameter name="phone" value="emulator"></parameter>
+        <classes>
+            <class name="appium.learnAppium">
+
+            </class>
+        </classes>
+    </test>
+</suite>

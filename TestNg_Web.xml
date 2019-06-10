@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Web Suite" parallel="tests">
+
+    <listeners>
+        <listener class-name="web.myListener"/>
+        <listener class-name="utils.myAnnotationTransformer"/>
+    </listeners>
+
+    <test name="Group Test">
+        <groups>
+            <run>
+                <!--<include name="Regression"/>-->
+            </run>
+        </groups>
+        <classes>
+            <class name="web.TestNgTest"/>
+        </classes>
+    </test>
+    <!--<test name="Chrome Test">-->
+        <!--<parameter name="url" value="https://www.online.citibank.co.in/"></parameter>-->
+        <!--<parameter name="browser" value="chrome"></parameter>-->
+        <!--<classes>-->
+            <!--<class name="web.winHandle">-->
+
+            <!--</class>-->
+        <!--</classes>-->
+    <!--</test>-->
+    <!--<test name="Firefox Test" enabled="false">-->
+        <!--<parameter name="url" value="http://www.firefox.com"></parameter>-->
+        <!--<parameter name="browser" value="Firefox"></parameter>-->
+        <!--<classes>-->
+            <!--<class name="web.winHandle">-->
+
+            <!--</class>-->
+        <!--</classes>-->
+    <!--</test>-->
+</suite>
