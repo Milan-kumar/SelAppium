@@ -47,7 +47,6 @@ public class winHandle {
         driver.switchTo().frame("footer");
         driver.findElement(By.xpath("//a[text()=\"Terms and Conditions\"]")).click();
         WebDriverWait wait  = new WebDriverWait(driver,20);
-        wait.until(ExpectedConditions.titleContains("HDFC"));
         Set<String> winHandles = driver.getWindowHandles();
 
         for(String windows:winHandles){
@@ -55,6 +54,7 @@ public class winHandle {
             System.out.println(driver.getTitle());
             if(!windows.equalsIgnoreCase(parentHandle)){
                 driver.switchTo().window(windows);
+                wait.until(ExpectedConditions.titleContains("Leading Bank"));
                 System.out.println(driver.getTitle());
                 Assert.assertTrue(driver.getTitle().contains("HDFC Bank"),"Terms Pop UP");
             }
