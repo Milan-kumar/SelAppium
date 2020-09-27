@@ -22,24 +22,27 @@ public class learnAppium {
 
     public AndroidDriver driver;
 
-    @BeforeClass(enabled = false)
+    @BeforeClass()
     public void setupNative() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 //        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"emulator-5554");
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"3436b04d0204");
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION,"7.0");
         capabilities.setCapability(MobileCapabilityType.BROWSER_NAME,"");
-        capabilities.setCapability(MobileCapabilityType.APP,"C:\\Auto\\Appium\\selendroid-test-app-0.17.0.apk");
-        capabilities.setCapability("app-package","io.selendroid.testapp");
-        capabilities.setCapability("app-activity",".HomeScreenActivity");
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"Nokia 7.2");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION,10);
+        
+        capabilities.setCapability(MobileCapabilityType.APP,"C:\\Auto\\Selenium\\SelAppium\\data\\base.apk");
+//        capabilities.setCapability("app-package","app.bih.in.nic.HarKhetPaani");
+//        capabilities.setCapability("app-activity",".ui.DashBoardActivity");
+//        capabilities.setCapability("app-activity","app.bih.in.nic.HarKhetPaani.ui.LoginActivity");
+        capabilities.setCapability("autoGrantPermissions", "true");
         capabilities.setCapability(MobileCapabilityType.NO_RESET,true);
         capabilities.setCapability(MobileCapabilityType.FULL_RESET,false);
         driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"),capabilities);
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
     }
 
-    @BeforeClass
+    @BeforeClass(enabled = false)
     @Parameters("phone")
     public void setupBrowser(String phone) throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -93,7 +96,7 @@ public class learnAppium {
 //        driver.findElementById("exceptionTestField").sendKeys("EXCEPTION");
     }
 
-    @Test(enabled =true)
+    @Test(enabled = false)
     public void multiApp() throws InterruptedException {
         Thread.sleep(5000);
         driver.startActivity(new Activity("com.koushikdutta.vysor",".StartActivity"));
@@ -128,5 +131,14 @@ public class learnAppium {
                 .moveTo(PointOption.point(endX,endY))
                 .release()
                 .perform();
+    }
+    
+    @Test
+    public void newAct() {
+    	List<WebElement> listEl = driver.findElementsById("bpagenovolno");
+    	System.out.println("List SIze:"+ listEl.size());
+    	for(WebElement el : listEl) {
+    		System.out.println("VALLLL"+el.getText());
+    	}
     }
 }

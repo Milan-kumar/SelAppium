@@ -7,7 +7,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 public class myAnnotationTransformer implements IAnnotationTransformer {
-    public void transform(ITestAnnotation iTestAnnotation, Class aClass, Constructor constructor, Method method) {
-        iTestAnnotation.setRetryAnalyzer(myRetryAnalyzer.class);
-    }
+
+	public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
+		annotation.setRetryAnalyzer(myRetryAnalyzer.class);
+		
+	}
+	/*
+	 * public void transform(ITestAnnotation iTestAnnotation, Class aClass,
+	 * Constructor constructor, Method method) {
+	 * iTestAnnotation.setRetryAnalyzer(myRetryAnalyzer.class); }
+	 */
 }
