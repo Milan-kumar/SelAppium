@@ -45,11 +45,11 @@ public class winHandle extends BaseClass {
         boolean sinch = false;
         boolean asinch = false;
         //a[text()="2"]
-        driver.findElement(By.linkText("5")).click();
+        driver.findElement(By.linkText("7")).click();
         Thread.sleep(5000);
         List<WebElement> listEl = driver.findElements(By.xpath("//a[contains(@id,\"_lnkSelect\")]"));
         int i = 2;
-        for (int j = 9; j <= listEl.size()+1; j++)
+        for (int j = 18; j <= listEl.size()+1; j++)
 //        for(WebElement e: listEl)
 //        while(driver.findElements(By.xpath("//a[contains(@id,\"_lnkSelect\")]")).size()>1)
         {
@@ -58,26 +58,25 @@ public class winHandle extends BaseClass {
 //            System.out.println("Owner::"+owner);
 //            i++;
             if (j>=10)
+
                 driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl" + j + "_lnkSelect")).click();
             else
-            driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl0" + j + "_lnkSelect")).click();
+                driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl0" + j + "_lnkSelect")).click();
 //            listEl.get(j).click();
 //            e.click();
 //            explWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey"))));
+            Thread.sleep(5000);
             String acre = "";
             String desimal = "";
             if (driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected()) {
 //                acre = driver.findElement(By.id("ctl00_MainContent_txtSinAcure")).getAttribute("value");
 //                desimal = driver.findElement(By.id("ctl00_MainContent_txtSinDesimal")).getAttribute("value");
+                driver.findElement(By.id("ctl00_MainContent_lnkBack")).click();
+                Thread.sleep(5000);
                 continue;
             }
 
-            if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
-                driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
-                driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
-                driver.switchTo().alert().accept();
-                continue;
-            }
+
 
             acre = driver.findElement(By.id("ctl00_MainContent_txtSinAcure")).getAttribute("value");
             desimal = driver.findElement(By.id("ctl00_MainContent_txtSinDesimal")).getAttribute("value");
@@ -87,7 +86,14 @@ public class winHandle extends BaseClass {
 
 //            String ownerName = driver.findElement(By.id("ctl00_MainContent_lblOwnerName"));
 //            System.out.println("OwnerName:: "+ownerName+" SinchitCount:: "+sinchit+" Total:: "+total);
-            System.out.println(" SinchitCount:: " + sinchit + " Total:: " + total);
+            System.out.println("ITR: "+j+" SinchitCount:: " + sinchit + " Total:: " + total);
+
+            if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
+                driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
+                driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
+                driver.switchTo().alert().accept();
+                continue;
+            }
 
             //            if(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected() && !ownerName.equalsIgnoreCase("NA"))
 //            else if(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected() && total <= 0){
@@ -163,7 +169,7 @@ public class winHandle extends BaseClass {
 
                     driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
                     driver.findElement(By.id("ctl00_MainContent_rbtOtherNo")).click();
-                    driver.findElement(By.id("ctl00_MainContent_rbtOtherNeedNo")).click();
+                    driver.findElement(By.id("ctl00_MainContent_rbtOtherNeedYes")).click();
 //                }else
 //                    driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
             }
