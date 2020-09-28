@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite" parallel="tests">
-    <test verbose="2" preserve-order="true" name="Runi">
+    <!--<test verbose="2" preserve-order="true" name="Runi">
         <parameter name="panchayat" value="runi"/>
         <classes>
             <class name="web.winHandle">
                 <methods><include name="test"/></methods>
             </class>
         </classes>
-    </test>
+    </test>-->
     <test verbose="2" preserve-order="true" name="Basatpur">
         <parameter name="panchayat" value="basatpur"/>
         <classes>
@@ -17,12 +17,12 @@
             </class>
         </classes>
     </test>
-    <test verbose="2" preserve-order="true" name="Majholi">
+    <!--<test verbose="2" preserve-order="true" name="Majholi">
         <parameter name="panchayat" value="majholi"/>
         <classes>
             <class name="web.winHandle">
                 <methods><include name="test"/></methods>
             </class>
         </classes>
-    </test>
+    </test>-->
 </suite>
