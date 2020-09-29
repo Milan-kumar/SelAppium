@@ -11,7 +11,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 public class winHandle extends BaseClass {
 //    WebDriver driver;
@@ -19,8 +23,14 @@ public class winHandle extends BaseClass {
 
     @Test
     @Parameters("panchayat")
-    public void test(String panchayat) throws InterruptedException {
+    public void test(String panchayat) throws InterruptedException, IOException
+    {
         driver.get("http://krishijal.bih.nic.in/");
+//        Properties prop = new Properties();
+//        InputStream in = getClass().getResourceAsStream("framework.properties");
+//        prop.load(in);
+//        prop.setProperty("newkey", "newvalue");
+//        prop.store(new FileOutputStream("xyz.properties"), null);
         Wait explWait = new WebDriverWait(driver, 600);
         driver.findElement(By.id("ctl00_MainContent_txtUserId")).sendKeys("BR101152");
         driver.findElement(By.id("ctl00_MainContent_txtPassword")).sendKeys("1234", Keys.ENTER);
@@ -45,11 +55,11 @@ public class winHandle extends BaseClass {
         boolean sinch = false;
         boolean asinch = false;
         //a[text()="2"]
-//        driver.findElement(By.linkText("7")).click();
+        driver.findElement(By.linkText("2")).click();
         Thread.sleep(5000);
         List<WebElement> listEl = driver.findElements(By.xpath("//a[contains(@id,\"_lnkSelect\")]"));
         int i = 2;
-        for (int j = 18; j <= listEl.size()+1; j++)
+        for (int j = 2; j <= listEl.size()+1; j++)
 //        for(WebElement e: listEl)
 //        while(driver.findElements(By.xpath("//a[contains(@id,\"_lnkSelect\")]")).size()>1)
         {
@@ -58,7 +68,6 @@ public class winHandle extends BaseClass {
 //            System.out.println("Owner::"+owner);
 //            i++;
             if (j>=10)
-
                 driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl" + j + "_lnkSelect")).click();
             else
                 driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl0" + j + "_lnkSelect")).click();
@@ -69,11 +78,12 @@ public class winHandle extends BaseClass {
             String acre = "";
             String desimal = "";
 
-            Select plot = new Select(driver.findElement(By.id("ctl00_MainContent_ddlPlotNumber")));
-            int plotListSize = plot.getOptions().size();
-            for(int z=1;z<=plotListSize;z++) {
-                plot.selectByIndex(z);
-                Thread.sleep(5000);
+//            Select plot = new Select(driver.findElement(By.id("ctl00_MainContent_ddlPlotNumber")));
+//            int plotListSize = plot.getOptions().size();
+//            for(int z=1;z<=plotListSize;z++) {
+//                plot.selectByIndex(z);
+//                Thread.sleep(5000);
+//            for(int z=1;z<=plotListSize;z++) {
                 if (driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected()) {
 //                acre = driver.findElement(By.id("ctl00_MainContent_txtSinAcure")).getAttribute("value");
 //                desimal = driver.findElement(By.id("ctl00_MainContent_txtSinDesimal")).getAttribute("value");
@@ -82,6 +92,13 @@ public class winHandle extends BaseClass {
                     continue;
                 }
 
+            if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
+                driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
+                driver.findElement(By.id("ctl00_MainContent_rbtOtherNeedYes")).click();
+                driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
+                driver.switchTo().alert().accept();
+                continue;
+            }
 
                 acre = driver.findElement(By.id("ctl00_MainContent_txtSinAcure")).getAttribute("value");
                 desimal = driver.findElement(By.id("ctl00_MainContent_txtSinDesimal")).getAttribute("value");
@@ -93,12 +110,7 @@ public class winHandle extends BaseClass {
 //            System.out.println("OwnerName:: "+ownerName+" SinchitCount:: "+sinchit+" Total:: "+total);
                 System.out.println("ITR: " + j + " SinchitCount:: " + sinchit + " Total:: " + total);
 
-                if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
-                    driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
-                    driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
-                    driver.switchTo().alert().accept();
-                    continue;
-                }
+
 
                 //            if(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected() && !ownerName.equalsIgnoreCase("NA"))
 //            else if(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected() && total <= 0){
@@ -147,7 +159,6 @@ public class winHandle extends BaseClass {
                     surfaceWater.selectByValue("14");
                     Select borwel = new Select(driver.findElement(By.id("ctl00_MainContent_ddlBorvelForKisan")));
                     borwel.selectByValue("3");
-
                     Select distFT = new Select(driver.findElement(By.id("ctl00_MainContent_ddlCommandarea2")));
                     if (total >= 100)
                         distFT.selectByValue("1");
@@ -175,15 +186,12 @@ public class winHandle extends BaseClass {
                     driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
                     driver.findElement(By.id("ctl00_MainContent_rbtOtherNo")).click();
                     driver.findElement(By.id("ctl00_MainContent_rbtOtherNeedYes")).click();
-//                }else
-//                    driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
                 }
-
-            }
             driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
             driver.switchTo().alert().accept();
-        }
-    }
+            }
+
+            }
 
 //	@Test
 //    @Parameters("url")
