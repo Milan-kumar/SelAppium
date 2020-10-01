@@ -54,30 +54,31 @@ public class winHandle extends BaseClass {
         boolean execute = false;
         boolean sinch = false;
         boolean asinch = false;
-        //a[text()="2"]
-        driver.findElement(By.linkText("2")).click();
+//        driver.findElement(By.linkText("10")).click();
         Thread.sleep(5000);
         List<WebElement> listEl = driver.findElements(By.xpath("//a[contains(@id,\"_lnkSelect\")]"));
-        int i = 2;
+        int i = 11;
+        String id="";
+        String sNum = "";
         for (int j = 2; j <= listEl.size()+1; j++)
 //        for(WebElement e: listEl)
 //        while(driver.findElements(By.xpath("//a[contains(@id,\"_lnkSelect\")]")).size()>1)
         {
-//            driver.findElement(By.linkText("2")).click();
-//            String owner = driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl0"+i+"_lnkOwner_Name"));
-//            System.out.println("Owner::"+owner);
-//            i++;
-            if (j>=10)
+            if (j>=10) {
+                id = driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl"+j+"_lnkID")).getText();
+                sNum = driver.findElement(By.xpath("//a[@id=\"ctl00_MainContent_grdOwner_ctl"+j+"_lnkSelect\"]/../following-sibling::td[1]")).getText();
                 driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl" + j + "_lnkSelect")).click();
-            else
+            }
+            else {
+                id = driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl0"+j+"_lnkID")).getText();
+                sNum = driver.findElement(By.xpath("//a[@id=\"ctl00_MainContent_grdOwner_ctl0"+j+"_lnkSelect\"]/../following-sibling::td[1]")).getText();
                 driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl0" + j + "_lnkSelect")).click();
-//            listEl.get(j).click();
-//            e.click();
-//            explWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey"))));
+            }
+            explWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey"))));
+            System.out.println("ITR: " + j + " ID:: " + id+" sNum:: "+sNum);
             Thread.sleep(5000);
             String acre = "";
             String desimal = "";
-
 //            Select plot = new Select(driver.findElement(By.id("ctl00_MainContent_ddlPlotNumber")));
 //            int plotListSize = plot.getOptions().size();
 //            for(int z=1;z<=plotListSize;z++) {
@@ -91,26 +92,24 @@ public class winHandle extends BaseClass {
                     Thread.sleep(5000);
                     continue;
                 }
-
-            if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
-                driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
-                driver.findElement(By.id("ctl00_MainContent_rbtOtherNeedYes")).click();
-                driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
-                driver.switchTo().alert().accept();
-                continue;
-            }
-
+                if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
+                    driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
+                    driver.findElement(By.id("ctl00_MainContent_rbtOtherNeedYes")).click();
+                    driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
+                    driver.switchTo().alert().accept();
+                    if(j==21){
+                        j=1;
+                        i++;
+                        driver.findElement(By.linkText(String.valueOf(i))).click();
+                    }
+                    continue;
+                }
                 acre = driver.findElement(By.id("ctl00_MainContent_txtSinAcure")).getAttribute("value");
                 desimal = driver.findElement(By.id("ctl00_MainContent_txtSinDesimal")).getAttribute("value");
-
                 double total = Double.valueOf(acre + desimal);
                 double dist = total / 100;
-
 //            String ownerName = driver.findElement(By.id("ctl00_MainContent_lblOwnerName"));
 //            System.out.println("OwnerName:: "+ownerName+" SinchitCount:: "+sinchit+" Total:: "+total);
-                System.out.println("ITR: " + j + " SinchitCount:: " + sinchit + " Total:: " + total);
-
-
 
                 //            if(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected() && !ownerName.equalsIgnoreCase("NA"))
 //            else if(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey")).isSelected() && total <= 0){
@@ -119,20 +118,25 @@ public class winHandle extends BaseClass {
 //                    driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).click();
 //                execute = true;
 //            }
-                if (driver.findElement(By.id("ctl00_MainContent_rbtSinchit")).isSelected() && sinchit <= 292 && total > 50) {
+                if (driver.findElement(By.id("ctl00_MainContent_rbtSinchit")).isSelected() && sinchit <= 292 && total >= 5) {
 //                driver.findElement(By.id("ctl00_MainContent_rbtSinchit")).click();
                     sinchit++;
                     execute = true;
                     sinch = true;
+                    Thread.sleep(2000);
                     driver.findElement(By.id("ctl00_MainContent_rbtAccp1Yes")).click();
-                } else if (driver.findElement(By.id("ctl00_MainContent_rbtSinchit")).isSelected() && sinchit <= 292 && total < 50) {
-                    driver.findElement(By.id("ctl00_MainContent_rbtSinchit")).click();
+                    driver.findElement(By.id("ctl00_MainContent_rbtOtherNo")).click();
+                    driver.findElement(By.id("ctl00_MainContent_rbtAccp1No")).click();
+                }
+                else if (driver.findElement(By.id("ctl00_MainContent_rbtSinchit")).isSelected() && sinchit <= 292 && total < 5) {
+                    driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).click();
                     Thread.sleep(5000);
                     if (!driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
                         driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).click();
                         explWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ctl00_MainContent_txtASinchAcure"))));
-                        execute = true;
                     }
+                    execute = true;
+                    sinch = false;
                 }
 //            else if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
 ////                driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).click();
@@ -147,14 +151,10 @@ public class winHandle extends BaseClass {
                     sinch = false;
                 }
                 if (execute && !sinch) {
-//                if (!sinch) {
-//                if (!asinch) {
                     driver.findElement(By.id("ctl00_MainContent_txtASinchAcure")).sendKeys(acre, Keys.TAB);
                     Thread.sleep(5000);
                     driver.findElement(By.id("ctl00_MainContent_txtASinchitDesimal")).sendKeys(desimal, Keys.TAB);
-//                }
-                    //            Select surfaceWater = new Select(driver.findElement(By.id("ctl00_MainContent_ddlSurfaceWater")));
-                    //ctl00_MainContent_ddlSurfaceIrigationForKisan
+                    Thread.sleep(5000);
                     Select surfaceWater = new Select(driver.findElement(By.id("ctl00_MainContent_ddlSurfaceIrigationForKisan")));
                     surfaceWater.selectByValue("14");
                     Select borwel = new Select(driver.findElement(By.id("ctl00_MainContent_ddlBorvelForKisan")));
@@ -168,7 +168,6 @@ public class winHandle extends BaseClass {
                         distFT.selectByValue("3");
                     else
                         distFT.selectByValue("4");
-
                     Select achadit = new Select(driver.findElement(By.id("ctl00_MainContent_ddlExesesStoping2")));
                     if (dist >= 0 && dist <= .5)
                         achadit.selectByValue("1");
@@ -187,10 +186,17 @@ public class winHandle extends BaseClass {
                     driver.findElement(By.id("ctl00_MainContent_rbtOtherNo")).click();
                     driver.findElement(By.id("ctl00_MainContent_rbtOtherNeedYes")).click();
                 }
+            System.out.println(" SinchitCount:: " + sinchit + " Total:: " + total);
             driver.findElement(By.id("ctl00_MainContent_btnSubmit")).click();
             driver.switchTo().alert().accept();
+            Thread.sleep(5000);
+            if(j==21){
+                j=2;
+                i++;
+                driver.findElement(By.linkText(String.valueOf(i))).click();
             }
 
+            }
             }
 
 //	@Test
