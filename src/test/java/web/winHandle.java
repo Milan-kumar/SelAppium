@@ -57,7 +57,7 @@ public class winHandle extends BaseClass {
 //        driver.findElement(By.linkText("10")).click();
         Thread.sleep(5000);
         List<WebElement> listEl = driver.findElements(By.xpath("//a[contains(@id,\"_lnkSelect\")]"));
-        int i = 11;
+        int i = 61;
         String id="";
         String sNum = "";
         for (int j = 2; j <= listEl.size()+1; j++)
@@ -75,7 +75,7 @@ public class winHandle extends BaseClass {
                 driver.findElement(By.id("ctl00_MainContent_grdOwner_ctl0" + j + "_lnkSelect")).click();
             }
             explWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ctl00_MainContent_rbtnotsurvey"))));
-            System.out.println("ITR: " + j + " ID:: " + id+" sNum:: "+sNum);
+            System.out.println("Page: "+i+" ITR: " + j + " ID:: " + id+" sNum:: "+sNum);
             Thread.sleep(5000);
             String acre = "";
             String desimal = "";
@@ -90,6 +90,11 @@ public class winHandle extends BaseClass {
 //                desimal = driver.findElement(By.id("ctl00_MainContent_txtSinDesimal")).getAttribute("value");
                     driver.findElement(By.id("ctl00_MainContent_lnkBack")).click();
                     Thread.sleep(5000);
+                    if(j==21){
+                        j=1;
+                        i++;
+                        driver.findElement(By.linkText(String.valueOf(i))).click();
+                    }
                     continue;
                 }
                 if (driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
@@ -133,6 +138,7 @@ public class winHandle extends BaseClass {
                     Thread.sleep(5000);
                     if (!driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).isSelected()) {
                         driver.findElement(By.id("ctl00_MainContent_rbtASinchit")).click();
+                        Thread.sleep(5000);
                         explWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ctl00_MainContent_txtASinchAcure"))));
                     }
                     execute = true;
